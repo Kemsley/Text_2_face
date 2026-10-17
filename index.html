@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Avatar Chatboard</title>
+    <title>FPX - Personal AI Team Chatboard</title>
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
             --accent: #38bdf8;
             --accent-glow: rgba(56, 189, 248, 0.3);
             --text-main: #f8fafc;
@@ -30,41 +30,45 @@
             margin-bottom: 5px;
             color: var(--accent);
             text-align: center;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
         }
 
         p.subtitle {
             color: var(--text-muted);
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             text-align: center;
+            font-size: 0.95rem;
         }
 
         .container {
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
 
-        /* Avatar Selection Grid */
         .section-title {
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 0.9rem;
+            font-weight: 700;
             margin-bottom: 10px;
-            color: var(--text-muted);
+            color: var(--accent);
+            letter-spacing: 0.5px;
         }
 
+        /* Avatar Selection Grid */
         .avatar-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 12px;
         }
 
         .avatar-card {
             background-color: var(--card-bg);
-            border: 2px solid transparent;
+            border: 2px solid #1f2937;
             border-radius: 12px;
-            padding: 15px;
+            padding: 10px;
             text-align: center;
             cursor: pointer;
             transition: all 0.2s ease-in-out;
@@ -78,55 +82,83 @@
         .avatar-card.selected {
             border-color: var(--accent);
             box-shadow: 0 0 15px var(--accent-glow);
-            background-color: #1e3a5f;
+            background-color: #1e293b;
         }
 
-        .avatar-emoji {
-            font-size: 2.5rem;
+        .avatar-img-container {
+            width: 100%;
+            height: 120px;
+            border-radius: 8px;
+            overflow: hidden;
             margin-bottom: 8px;
+            background: #000;
+        }
+
+        .avatar-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
         }
 
         .avatar-name {
             font-weight: bold;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .avatar-role {
+            font-size: 0.75rem;
+            color: var(--text-muted);
         }
 
         /* Active Display Screen */
         .stage {
             background-color: var(--card-bg);
+            border: 1px solid #1f2937;
             border-radius: 16px;
-            padding: 30px;
+            padding: 25px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
         }
 
-        .stage-avatar {
-            font-size: 5rem;
+        .stage-avatar-container {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--accent);
             margin-bottom: 15px;
+            box-shadow: 0 0 20px var(--accent-glow);
             transition: transform 0.2s;
         }
 
-        .speaking {
-            animation: bounce 0.5s infinite alternate;
+        .stage-avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
         }
 
-        @keyframes bounce {
-            0% { transform: translateY(0) scale(1); }
-            100% { transform: translateY(-10px) scale(1.05); }
+        .speaking {
+            animation: pulse-glow 0.5s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            0% { transform: scale(1); box-shadow: 0 0 10px var(--accent); }
+            100% { transform: scale(1.05); box-shadow: 0 0 25px var(--accent); }
         }
 
         .speech-bubble {
-            background: #0f172a;
+            background: #0b0f19;
             border: 1px solid #334155;
-            padding: 15px 20px;
+            padding: 12px 20px;
             border-radius: 12px;
-            max-width: 90%;
-            min-height: 50px;
+            max-width: 100%;
+            min-height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -135,6 +167,7 @@
             margin-bottom: 20px;
             width: 100%;
             box-sizing: border-box;
+            font-size: 0.95rem;
         }
 
         /* Controls Panel */
@@ -153,7 +186,7 @@
         }
 
         label {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
             font-weight: 600;
         }
@@ -161,11 +194,11 @@
         select, textarea {
             width: 100%;
             padding: 12px;
-            background-color: #0f172a;
+            background-color: #0b0f19;
             border: 1px solid #334155;
             border-radius: 8px;
             color: white;
-            font-size: 1rem;
+            font-size: 0.95rem;
             box-sizing: border-box;
             outline: none;
             transition: border-color 0.2s;
@@ -177,12 +210,12 @@
 
         textarea {
             resize: vertical;
-            min-height: 80px;
+            min-height: 70px;
         }
 
         button.speak-btn {
             background-color: var(--accent);
-            color: #0f172a;
+            color: #0b0f19;
             border: none;
             padding: 14px;
             font-size: 1rem;
@@ -204,79 +237,89 @@
 <body>
 
     <div class="container">
-        <h1>AI Avatar Chatboard</h1>
-        <p class="subtitle">Select an avatar, type your message, choose a funny voice, and bring them to life!</p>
+        <h1>AI: OPERATIONAL REALITY DOES NOT WAIT</h1>
+        <p class="subtitle">FPX • First Principle of Representational Dependency</p>
 
         <!-- 1. Avatar Selector -->
         <div>
-            <div class="section-title">1. CHOOSE YOUR AVATAR</div>
+            <div class="section-title">1. CHOOSE YOUR AI SPECIALIST</div>
             <div class="avatar-grid" id="avatarGrid">
-                <div class="avatar-card selected" data-id="0" data-emoji="🤖" data-name="Bot-X">
-                    <div class="avatar-emoji">🤖</div>
-                    <div class="avatar-name">Bot-X</div>
+                <div class="avatar-card selected" data-name="Hacker" data-role="Cyber-Security" data-img="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80">
+                    <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80" alt="Hacker"></div>
+                    <div class="avatar-name">Hacker</div>
+                    <div class="avatar-role">Cyber-Security</div>
                 </div>
-                <div class="avatar-card" data-id="1" data-emoji="🦊" data-name="Foxy">
-                    <div class="avatar-emoji">🦊</div>
-                    <div class="avatar-name">Foxy</div>
+                <div class="avatar-card" data-name="Researcher" data-role="Data-Analytics" data-img="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80">
+                    <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" alt="Researcher"></div>
+                    <div class="avatar-name">Researcher</div>
+                    <div class="avatar-role">Data-Analytics</div>
                 </div>
-                <div class="avatar-card" data-id="2" data-emoji="👽" data-name="Zorp">
-                    <div class="avatar-emoji">👽</div>
-                    <div class="avatar-name">Zorp</div>
+                <div class="avatar-card" data-name="Office" data-role="Modern-Workflow" data-img="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80">
+                    <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="Office"></div>
+                    <div class="avatar-name">Office</div>
+                    <div class="avatar-role">Modern-Workflow</div>
                 </div>
-                <div class="avatar-card" data-id="3" data-emoji="🧙‍♂️" data-name="Merlin">
-                    <div class="avatar-emoji">🧙‍♂️</div>
-                    <div class="avatar-name">Merlin</div>
+                <div class="avatar-card" data-name="Doctor" data-role="AI-Diagnostics" data-img="https://images.unsplash.com/photo-1594824813589-98246473bb3a?w=400&q=80">
+                    <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1594824813589-98246473bb3a?w=400&q=80" alt="Doctor"></div>
+                    <div class="avatar-name">Doctor</div>
+                    <div class="avatar-role">AI-Diagnostics</div>
                 </div>
-                <div class="avatar-card" data-id="4" data-emoji="🐱" data-name="Whiskers">
-                    <div class="avatar-emoji">🐱</div>
-                    <div class="avatar-name">Whiskers</div>
+                <div class="avatar-card" data-name="Librarian" data-role="Knowledge-Curation" data-img="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80">
+                    <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80" alt="Librarian"></div>
+                    <div class="avatar-name">Librarian</div>
+                    <div class="avatar-role">Knowledge-Curation</div>
                 </div>
             </div>
         </div>
 
         <!-- 2. Active Stage Screen -->
         <div class="stage">
-            <div class="stage-avatar" id="stageEmoji">🤖</div>
-            <div class="speech-bubble" id="speechBubble">"Ready to chat! Type something below."</div>
+            <div class="stage-avatar-container" id="stageContainer">
+                <img id="stageImg" src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80" alt="Active Avatar">
+            </div>
+            <div class="speech-bubble" id="speechBubble">"Operational reality does not wait for your dataset to update."</div>
             
             <div class="controls">
                 <div class="control-group">
-                    <label for="textInput">MESSAGE TO SPEAK</label>
-                    <textarea id="textInput" placeholder="Type what you want your avatar to say...">Hello humans! I have completely taken over this browser window.</textarea>
+                    <label for="textInput">2. MESSAGE TO SPEAK</label>
+                    <textarea id="textInput" placeholder="Type what you want your AI specialist to say...">Dismiss the data, crash the reality. Operational reality is updating now.</textarea>
                 </div>
 
                 <div class="control-group">
-                    <label for="voiceSelect">FUNNY VOICE STYLE</label>
+                    <label for="voiceSelect">3. FUNNY VOICE STYLE</label>
                     <select id="voiceSelect">
                         <option value="chipmunk">Chipmunk (High & Fast)</option>
                         <option value="deep">Deep Demon (Super Low)</option>
                         <option value="drunk">Sloppy & Slow</option>
                         <option value="hyper">Hyperactive Caffeinated</option>
-                        <option value="normal">Normal Clean Voice</option>
+                        <option value="normal" selected>Normal Clean Voice</option>
                     </select>
                 </div>
 
-                <button class="speak-btn" id="speakBtn">Make Avatar Speak 🗣️</button>
+                <button class="speak-btn" id="speakBtn">Make Specialist Speak 🗣️</button>
             </div>
         </div>
     </div>
 
     <script>
         // State
-        let selectedAvatar = { emoji: '🤖', name: 'Bot-X' };
+        let selectedAvatar = { 
+            name: 'Hacker', 
+            img: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80' 
+        };
 
         // Handle Avatar Selection
         const cards = document.querySelectorAll('.avatar-card');
-        const stageEmoji = document.getElementById('stageEmoji');
+        const stageImg = document.getElementById('stageImg');
 
         cards.forEach(card => {
             card.addEventListener('click', () => {
                 cards.forEach(c => c.classList.remove('selected'));
                 card.classList.add('selected');
                 
-                selectedAvatar.emoji = card.getAttribute('data-emoji');
                 selectedAvatar.name = card.getAttribute('data-name');
-                stageEmoji.textContent = selectedAvatar.emoji;
+                selectedAvatar.img = card.getAttribute('data-img');
+                stageImg.src = selectedAvatar.img;
             });
         });
 
@@ -285,42 +328,40 @@
         const textInput = document.getElementById('textInput');
         const voiceSelect = document.getElementById('voiceSelect');
         const speechBubble = document.getElementById('speechBubble');
+        const stageContainer = document.getElementById('stageContainer');
 
         speakBtn.addEventListener('click', () => {
             const text = textInput.value.trim();
             if (!text) return;
 
-            // Update bubble
             speechBubble.textContent = `"${text}"`;
 
-            // Check browser support
             if (!('speechSynthesis' in window)) {
                 alert('Your browser does not support text-to-speech.');
                 return;
             }
 
-            window.speechSynthesis.cancel(); // Stop any ongoing speech
+            window.speechSynthesis.cancel();
 
             const utterance = new SpeechSynthesisUtterance(text);
             const style = voiceSelect.value;
 
-            // Apply funny voice parameters
             switch(style) {
                 case 'chipmunk':
-                    utterance.pitch = 2.0; // Max high pitch
-                    utterance.rate = 1.4;  // Fast
+                    utterance.pitch = 2.0;
+                    utterance.rate = 1.4;
                     break;
                 case 'deep':
-                    utterance.pitch = 0.1; // Lowest pitch
-                    utterance.rate = 0.8;  // Slow
+                    utterance.pitch = 0.1;
+                    utterance.rate = 0.8;
                     break;
                 case 'drunk':
                     utterance.pitch = 0.6;
-                    utterance.rate = 0.5;  // Very slow slur
+                    utterance.rate = 0.5;
                     break;
                 case 'hyper':
                     utterance.pitch = 1.5;
-                    utterance.rate = 1.8;  // Blazing fast
+                    utterance.rate = 1.8;
                     break;
                 case 'normal':
                 default:
@@ -329,15 +370,14 @@
                     break;
             }
 
-            // Animate avatar speaking mouth/bounce
-            stageEmoji.classList.add('speaking');
+            stageContainer.classList.add('speaking');
 
             utterance.onend = () => {
-                stageEmoji.classList.remove('speaking');
+                stageContainer.classList.remove('speaking');
             };
 
             utterance.onerror = () => {
-                stageEmoji.classList.remove('speaking');
+                stageContainer.classList.remove('speaking');
             };
 
             window.speechSynthesis.speak(utterance);

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FPX - Personal AI Team Chatboard</title>
+    <title>FPX - Personal AI Team & Mashup Chatboard</title>
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -46,7 +46,7 @@
             max-width: 900px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px;
         }
 
         .section-title {
@@ -60,7 +60,7 @@
         /* Avatar Selection Grid */
         .avatar-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 12px;
         }
 
@@ -87,7 +87,7 @@
 
         .avatar-img-container {
             width: 100%;
-            height: 120px;
+            height: 110px;
             border-radius: 8px;
             overflow: hidden;
             margin-bottom: 8px;
@@ -126,8 +126,8 @@
         }
 
         .stage-avatar-container {
-            width: 140px;
-            height: 140px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
             overflow: hidden;
             border: 3px solid var(--accent);
@@ -232,6 +232,14 @@
         button.speak-btn:active {
             transform: scale(0.98);
         }
+
+        .divider {
+            border: 0;
+            height: 1px;
+            background: #1f2937;
+            width: 100%;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
@@ -272,7 +280,31 @@
             </div>
         </div>
 
-        <!-- 2. Active Stage Screen -->
+        <!-- NEW SECTION: Scene & Animal Mashup Selection -->
+        <div>
+            <div class="section-title">2. SCENE & FUNNY ANIMAL MASHUP</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="control-group">
+                    <label for="mashupAnimal">SELECT COMEDY ANIMAL PARTNER</label>
+                    <select id="mashupAnimal">
+                        <option value="cow">🐄 Cow (The Stock Market Predictor)</option>
+                        <option value="dog">🐕 Dog (Chief Security Auditor)</option>
+                        <option value="horse">🐎 Horse (Data Highway Hopper)</option>
+                        <option value="cat">🐈 Cat (Server Room Overlord)</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="mashupScenario">SELECT OPERATIONAL SCENARIO</label>
+                    <select id="mashupScenario">
+                        <option value="glitch">The Great System Glitch</option>
+                        <option value="meeting">The Emergency Boardroom Crisis</option>
+                        <option value="coffee">The Missing Coffee Supply Chain</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Active Stage Screen -->
         <div class="stage">
             <div class="stage-avatar-container" id="stageContainer">
                 <img id="stageImg" src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80" alt="Active Avatar">
@@ -281,12 +313,12 @@
             
             <div class="controls">
                 <div class="control-group">
-                    <label for="textInput">2. MESSAGE TO SPEAK</label>
+                    <label for="textInput">3. MESSAGE TO SPEAK (AUTO-GENERATED OR CUSTOM)</label>
                     <textarea id="textInput">Scanning network architecture... Operational reality check: Are your firewalls matching real-time threats?</textarea>
                 </div>
 
                 <div class="control-group">
-                    <label for="voiceSelect">3. FUNNY VOICE STYLE</label>
+                    <label for="voiceSelect">4. FUNNY VOICE STYLE</label>
                     <select id="voiceSelect">
                         <option value="chipmunk">Chipmunk (High & Fast)</option>
                         <option value="deep">Deep Demon (Super Low)</option>
@@ -302,16 +334,15 @@
     </div>
 
     <script>
-        // State
         let selectedAvatar = { 
             name: 'Hacker', 
             gender: 'male',
-            img: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80' 
+            img: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80',
+            basePrompt: "Scanning network architecture... Operational reality check: Are your firewalls matching real-time threats?"
         };
 
         let systemVoices = [];
 
-        // Load available browser voices
         function loadVoices() {
             systemVoices = window.speechSynthesis.getVoices();
         }
@@ -321,11 +352,32 @@
             window.speechSynthesis.onvoiceschanged = loadVoices;
         }
 
-        // Handle Avatar Selection & Dynamic Prompt Swapping
         const cards = document.querySelectorAll('.avatar-card');
         const stageImg = document.getElementById('stageImg');
         const textInput = document.getElementById('textInput');
         const speechBubble = document.getElementById('speechBubble');
+        const mashupAnimal = document.getElementById('mashupAnimal');
+        const mashupScenario = document.getElementById('mashupScenario');
+
+        // Function to combine human specialist + animal + scenario into a funny outcome text
+        function updateMashupPrompt() {
+            const animal = mashupAnimal.value;
+            const scenario = mashupScenario.value;
+            let text = "";
+
+            if (animal === 'cow') {
+                text = `[${selectedAvatar.name} & Cow Partnership]: Moo! The spreadsheet says pasture yields are up, but the cow is eating the server cables. Operational reality overrides the spreadsheet!`;
+            } else if (animal === 'dog') {
+                text = `[${selectedAvatar.name} & Guard Dog]: Woof! The security dataset says perimeter is clear, but the dog is barking at a ghost in the database. Dismiss the data!`;
+            } else if (animal === 'horse') {
+                text = `[${selectedAvatar.name} & Office Horse]: Neigh! The navigation map shows a clear highway, but this horse refuses to cross the broken bridge. Reality wins!`;
+            } else if (animal === 'cat') {
+                text = `[${selectedAvatar.name} & Server Cat]: Purr... The AI model is running smoothly, but the cat just stepped on the master shutdown switch. Crash the reality!`;
+            }
+
+            textInput.value = text;
+            speechBubble.textContent = `"${text}"`;
+        }
 
         cards.forEach(card => {
             card.addEventListener('click', () => {
@@ -335,13 +387,15 @@
                 selectedAvatar.name = card.getAttribute('data-name');
                 selectedAvatar.gender = card.getAttribute('data-gender');
                 selectedAvatar.img = card.getAttribute('data-img');
-                const newPrompt = card.getAttribute('data-prompt');
+                selectedAvatar.basePrompt = card.getAttribute('data-prompt');
 
                 stageImg.src = selectedAvatar.img;
-                textInput.value = newPrompt;
-                speechBubble.textContent = `"${newPrompt}"`;
+                updateMashupPrompt();
             });
         });
+
+        mashupAnimal.addEventListener('change', updateMashupPrompt);
+        mashupScenario.addEventListener('change', updateMashupPrompt);
 
         // Speech Handling with Gender Matching
         const speakBtn = document.getElementById('speakBtn');
@@ -363,7 +417,6 @@
 
             const utterance = new SpeechSynthesisUtterance(text);
             
-            // Match voice based on gender selection
             if (systemVoices.length > 0) {
                 let matchedVoice = systemVoices.find(v => {
                     const name = v.name.toLowerCase();
@@ -374,7 +427,6 @@
                     }
                 });
                 
-                // Fallback to first available voice if specific match isn't found
                 if (!matchedVoice) {
                     matchedVoice = systemVoices[0];
                 }
@@ -382,8 +434,6 @@
             }
 
             const style = voiceSelect.value;
-
-            // Apply funny voice parameters + base pitch adjustments for gender feel
             let basePitch = selectedAvatar.gender === 'female' ? 1.2 : 0.9;
 
             switch(style) {
@@ -424,4 +474,4 @@
         });
     </script>
 </body>
-</html>
+</html>>

@@ -131,7 +131,7 @@
             align-items: center;
             justify-content: center;
             gap: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .stage-avatar-box, .stage-partner-box {
@@ -167,32 +167,30 @@
             100% { transform: scale(1.05); box-shadow: 0 0 25px var(--accent); }
         }
 
-        /* Scenario Clip Preview Box */
-        .clip-preview-box {
+        /* Clean FPX Telemetry Display Box */
+        .telemetry-box {
             width: 100%;
-            height: 80px;
-            border-radius: 10px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: flex-end;
+            background: #0b0f19;
             border: 1px solid #334155;
-            overflow: hidden;
+            border-radius: 10px;
+            padding: 12px 18px;
+            margin-bottom: 15px;
+            text-align: left;
+            box-sizing: border-box;
         }
 
-        .clip-overlay {
-            background: rgba(11, 15, 25, 0.85);
-            width: 100%;
-            padding: 6px 12px;
-            font-size: 0.8rem;
+        .telemetry-title {
+            font-size: 0.75rem;
+            font-weight: 700;
             color: var(--accent);
-            text-align: left;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .telemetry-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
         }
 
         .speech-bubble {
@@ -287,27 +285,27 @@
         <div>
             <div class="section-title">1. CHOOSE YOUR AI SPECIALIST</div>
             <div class="avatar-grid" id="avatarGrid">
-                <div class="avatar-card selected" data-name="Hacker" data-gender="male" data-role="Cyber-Security" data-img="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80" data-prompt="Scanning network architecture... Operational reality check: Are your firewalls matching real-time threats?">
+                <div class="avatar-card selected" data-name="Hacker" data-gender="male" data-role="Cyber-Security" data-img="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80">
                     <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80" alt="Hacker"></div>
                     <div class="avatar-name">Hacker</div>
                     <div class="avatar-role">Cyber-Security</div>
                 </div>
-                <div class="avatar-card" data-name="Researcher" data-gender="female" data-role="Data-Analytics" data-img="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" data-prompt="Dataset verified. However, operational reality indicates the underlying metrics have shifted. Recalibrate now.">
+                <div class="avatar-card" data-name="Researcher" data-gender="female" data-role="Data-Analytics" data-img="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80">
                     <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" alt="Researcher"></div>
                     <div class="avatar-name">Researcher</div>
                     <div class="avatar-role">Data-Analytics</div>
                 </div>
-                <div class="avatar-card" data-name="Office" data-gender="male" data-role="Modern-Workflow" data-img="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" data-prompt="Workflow automated, but schedules don't match the field. Dismiss the old data or crash the operational reality.">
+                <div class="avatar-card" data-name="Office" data-gender="male" data-role="Modern-Workflow" data-img="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80">
                     <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="Office"></div>
                     <div class="avatar-name">Office</div>
                     <div class="avatar-role">Modern-Workflow</div>
                 </div>
-                <div class="avatar-card" data-name="Doctor" data-gender="female" data-role="AI-Diagnostics" data-img="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80" data-prompt="Diagnostic data is stable, but real-time vitals require an immediate physical review. Do not rely solely on the charts.">
+                <div class="avatar-card" data-name="Doctor" data-gender="female" data-role="AI-Diagnostics" data-img="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80">
                     <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80" alt="Doctor"></div>
                     <div class="avatar-name">Doctor</div>
                     <div class="avatar-role">AI-Diagnostics</div>
                 </div>
-                <div class="avatar-card" data-name="Librarian" data-gender="female" data-role="Knowledge-Curation" data-img="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80" data-prompt="The archive is indexed, but the history books won't save you from current operational conditions. Update your index.">
+                <div class="avatar-card" data-name="Librarian" data-gender="female" data-role="Knowledge-Curation" data-img="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80">
                     <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80" alt="Librarian"></div>
                     <div class="avatar-name">Librarian</div>
                     <div class="avatar-role">Knowledge-Curation</div>
@@ -322,26 +320,26 @@
                 <div class="control-group">
                     <label for="mashupAnimal">ORGANIZATIONAL ANIMAL / INSECT ROLE</label>
                     <select id="mashupAnimal">
-                        <option value="cow">🐄 Cow (The Legacy Baseline Asset - Stagnant Historical Data)</option>
-                        <option value="dog">🐕 Dog (Chief Security Auditor - Stalled Escalation & Vague Authority)</option>
-                        <option value="horse">🐎 Horse (Data Highway Hopper - Scaling Automation Before Stabilization)</option>
-                        <option value="cat">🐈 Cat (Server Room Overlord - Silent Divergence & Undocumented Hotfixes)</option>
-                        <option value="bug">🐛 System Bug (The Reality Glitch - Pipeline Decay & Hardcoded Override Failures)</option>
+                        <option value="cow">🐄 Cow (The Legacy Baseline Asset)</option>
+                        <option value="dog">🐕 Dog (Chief Security Auditor)</option>
+                        <option value="horse">🐎 Horse (Data Highway Hopper)</option>
+                        <option value="cat">🐈 Cat (Server Room Overlord)</option>
+                        <option value="bug">🐛 System Bug (The Reality Glitch)</option>
                     </select>
                 </div>
                 <div class="control-group">
                     <label for="mashupScenario">REAL-WORLD FPX FAILURE SCENARIO</label>
                     <select id="mashupScenario">
-                        <option value="policylag">Policy Lag vs. Live System Drift (Governance Sits Aside Delivery)</option>
-                        <option value="escalation">Stalled Escalation (When Everyone Is Responsible, No One Is Accountable)</option>
-                        <option value="sunkcapital">The Sunk Capital Loop (31.2% Efficiency Loss in Reactive Triage)</option>
-                        <option value="temporal">Temporal Data Rot (Using Multi-Year Decayed Baselines for Real-Time Inference)</option>
+                        <option value="policylag">Policy Lag vs. Live System Drift</option>
+                        <option value="escalation">Stalled Escalation (No One Accountable)</option>
+                        <option value="sunkcapital">The Sunk Capital Loop (31.2% Efficiency Loss)</option>
+                        <option value="temporal">Temporal Data Rot (Beyond 18 Months)</option>
                     </select>
                 </div>
             </div>
         </div>
 
-        <!-- 3. ACTIVE STAGE SCREEN WITH CLIP PREVIEW -->
+        <!-- 3. ACTIVE STAGE SCREEN WITH CLEAN TELEMETRY BOX -->
         <div class="stage">
             <!-- Visual Dual Image Framework -->
             <div class="stage-duo-container" id="stageDuoContainer">
@@ -354,20 +352,18 @@
                 </div>
             </div>
 
-            <!-- Dynamic Scenario Clip Preview Box -->
-            <div class="clip-preview-box" id="clipPreviewBox" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80');">
-                <div class="clip-overlay">
-                    <span id="clipTitleText">🎬 FPX CASE: Policy Lag vs. Live System Drift</span>
-                    <span style="font-size: 0.7rem; background: var(--accent); color: #0b0f19; padding: 2px 6px; border-radius: 4px;">FPX-LIVE</span>
-                </div>
+            <!-- Clean FPX Telemetry Display Box -->
+            <div class="telemetry-box">
+                <div class="telemetry-title" id="telemetryTitle">Active Telemetry: Policy Lag vs. Live System Drift</div>
+                <div class="telemetry-text" id="telemetryText">Governance fails when it sits alongside delivery. Systems move faster than policy handbooks.</div>
             </div>
 
-            <div class="speech-bubble" id="speechBubble">"Scanning network architecture... Operational reality check: Are your firewalls matching real-time threats?"</div>
+            <div class="speech-bubble" id="speechBubble">"Select a role and scenario to load operational telemetry..."</div>
             
             <div class="controls">
                 <div class="control-group">
                     <label for="textInput">3. MESSAGE TO SPEAK (FPX PRINCIPLE & ROLE PROMPT)</label>
-                    <textarea id="textInput">Scanning network architecture... Operational reality check: Are your firewalls matching real-time threats?</textarea>
+                    <textarea id="textInput">Select a role and scenario to load operational telemetry...</textarea>
                 </div>
 
                 <div class="control-group">
@@ -393,7 +389,7 @@
             img: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80'
         };
 
-        // Animal / Insect organizational failure profiles (with true insect macro image for the bug)
+        // Guaranteed correct animal & insect macro images
         const animalData = {
             cow: {
                 name: "Cow (Legacy Baseline Asset)",
@@ -417,30 +413,26 @@
             },
             bug: {
                 name: "System Bug (The Reality Glitch)",
-                img: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=400&q=80", // Macro insect image
+                img: "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?w=400&q=80", // Macro insect image
                 dialogue: "Bzzzt! I am a hardcoded script break. Custom cleaning scripts degraded rapidly, plunging engineering teams into a 31.2% efficiency triage loop!"
             }
         };
 
         const scenarioData = {
             policylag: { 
-                title: "🎬 FPX CASE: Policy Lag vs. Live System Drift", 
-                bg: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80",
+                title: "FPX CASE: Policy Lag vs. Live System Drift", 
                 principle: "Governance fails when it sits alongside delivery. Systems move faster than policy handbooks."
             },
             escalation: { 
-                title: "🎬 FPX CASE: Stalled Escalation & Accountability Thinning", 
-                bg: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&q=80",
+                title: "FPX CASE: Stalled Escalation & Accountability Thinning", 
                 principle: "Distributed responsibility dilutes decision-making authority. True assurance must be an architectural feature."
             },
             sunkcapital: { 
-                title: "🎬 FPX CASE: The Sunk Capital Loop (31.2% Efficiency Loss)", 
-                bg: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&q=80",
+                title: "FPX CASE: The Sunk Capital Loop (31.2% Efficiency Loss)", 
                 principle: "Custom cleaning scripts are brittle. Minor format shifts break pipelines, trapping teams in reactive triage."
             },
             temporal: { 
-                title: "🎬 FPX CASE: Temporal Data Rot (Beyond the 12-18 Month Threshold)", 
-                bg: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80",
+                title: "FPX CASE: Temporal Data Rot (Beyond the 12-18 Month Threshold)", 
                 principle: "A foundation model does not adapt to legacy architecture; it reveals every hidden structural flaw within it."
             }
         };
@@ -461,8 +453,8 @@
         const speechBubble = document.getElementById('speechBubble');
         const mashupAnimal = document.getElementById('mashupAnimal');
         const mashupScenario = document.getElementById('mashupScenario');
-        const clipPreviewBox = document.getElementById('clipPreviewBox');
-        const clipTitleText = document.getElementById('clipTitleText');
+        const telemetryTitle = document.getElementById('telemetryTitle');
+        const telemetryText = document.getElementById('telemetryText');
 
         function updateMashupContent() {
             const animalKey = mashupAnimal.value;
@@ -472,8 +464,8 @@
             const currentScenario = scenarioData[scenarioKey];
 
             partnerImg.src = currentAnimal.img;
-            clipPreviewBox.style.backgroundImage = `url('${currentScenario.bg}')`;
-            clipTitleText.textContent = currentScenario.title;
+            telemetryTitle.textContent = currentScenario.title;
+            telemetryText.textContent = currentScenario.principle;
 
             let combinedText = `[${selectedAvatar.name} & ${currentAnimal.name}]: ${currentScenario.principle} — ${currentAnimal.dialogue}`;
             textInput.value = combinedText;
@@ -496,6 +488,9 @@
 
         mashupAnimal.addEventListener('change', updateMashupContent);
         mashupScenario.addEventListener('change', updateMashupContent);
+
+        // Initial setup load
+        updateMashupContent();
 
         // Speech Handling with Gender Matching
         const speakBtn = document.getElementById('speakBtn');

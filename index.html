@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FPX - Personal AI Team & Enterprise Collaboration Dashboard</title>
+    <title>FPX - Personal AI Team Chatboard</title>
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -43,10 +43,10 @@
 
         .container {
             width: 100%;
-            max-width: 950px;
+            max-width: 900px;
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 20px;
         }
 
         .section-title {
@@ -60,7 +60,7 @@
         /* Avatar Selection Grid */
         .avatar-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 12px;
         }
 
@@ -87,7 +87,7 @@
 
         .avatar-img-container {
             width: 100%;
-            height: 110px;
+            height: 120px;
             border-radius: 8px;
             overflow: hidden;
             margin-bottom: 8px;
@@ -112,7 +112,7 @@
             color: var(--text-muted);
         }
 
-        /* Active Display Stage Screen */
+        /* Active Display Screen */
         .stage {
             background-color: var(--card-bg);
             border: 1px solid #1f2937;
@@ -125,37 +125,22 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.4);
         }
 
-        /* Dual-Image Partner Display Frame */
-        .stage-duo-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .stage-avatar-box, .stage-partner-box {
-            width: 110px;
-            height: 110px;
+        .stage-avatar-container {
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
             overflow: hidden;
             border: 3px solid var(--accent);
-            box-shadow: 0 0 15px var(--accent-glow);
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px var(--accent-glow);
             transition: transform 0.2s;
-            background: #000;
         }
 
-        .stage-avatar-box img, .stage-partner-box img {
+        .stage-avatar-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: top;
-        }
-
-        .partner-plus {
-            font-size: 1.5rem;
-            color: var(--accent);
-            font-weight: bold;
         }
 
         .speaking {
@@ -165,62 +150,6 @@
         @keyframes pulse-glow {
             0% { transform: scale(1); box-shadow: 0 0 10px var(--accent); }
             100% { transform: scale(1.05); box-shadow: 0 0 25px var(--accent); }
-        }
-
-        /* Contextual Image Underneath Stage */
-        .stage-context-img-box {
-            width: 100%;
-            height: 130px;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 15px;
-            border: 1px solid #334155;
-            position: relative;
-        }
-
-        .stage-context-img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .context-img-overlay {
-            position: absolute;
-            bottom: 0;
-            background: rgba(11, 15, 25, 0.85);
-            width: 100%;
-            padding: 6px 12px;
-            font-size: 0.75rem;
-            color: var(--accent);
-            text-align: left;
-            box-sizing: border-box;
-            font-weight: 600;
-        }
-
-        /* Clean FPX Telemetry Display Box */
-        .telemetry-box {
-            width: 100%;
-            background: #0b0f19;
-            border: 1px solid #334155;
-            border-radius: 10px;
-            padding: 12px 18px;
-            margin-bottom: 15px;
-            text-align: left;
-            box-sizing: border-box;
-        }
-
-        .telemetry-title {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-        }
-
-        .telemetry-text {
-            font-size: 0.85rem;
-            color: var(--text-muted);
         }
 
         .speech-bubble {
@@ -315,27 +244,27 @@
         <div>
             <div class="section-title">1. CHOOSE YOUR AI SPECIALIST</div>
             <div class="avatar-grid" id="avatarGrid">
-                <div class="avatar-card selected" data-name="Hacker" data-gender="male" data-role="Cyber-Security" data-img="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80">
+                <div class="avatar-card selected" data-name="Hacker" data-role="Cyber-Security" data-img="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80" data-prompt="Scanning network architecture... Operational reality check: Are your firewalls matching real-time threats?">
                     <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80" alt="Hacker"></div>
                     <div class="avatar-name">Hacker</div>
                     <div class="avatar-role">Cyber-Security</div>
                 </div>
-                <div class="avatar-card" data-name="Researcher" data-gender="female" data-role="Data-Analytics" data-img="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80">
+                <div class="avatar-card" data-name="Researcher" data-role="Data-Analytics" data-img="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" data-prompt="Dataset verified. However, operational reality indicates the underlying metrics have shifted. Recalibrate now.">
                     <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" alt="Researcher"></div>
                     <div class="avatar-name">Researcher</div>
                     <div class="avatar-role">Data-Analytics</div>
                 </div>
-                <div class="avatar-card" data-name="Office" data-gender="male" data-role="Modern-Workflow" data-img="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80">
+                <div class="avatar-card" data-name="Office" data-role="Modern-Workflow" data-img="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" data-prompt="Workflow automated, but schedules don't match the field. Dismiss the old data or crash the operational reality.">
                     <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="Office"></div>
                     <div class="avatar-name">Office</div>
                     <div class="avatar-role">Modern-Workflow</div>
                 </div>
-                <div class="avatar-card" data-name="Doctor" data-gender="female" data-role="AI-Diagnostics" data-img="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80">
-                    <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80" alt="Doctor"></div>
+                <div class="avatar-card" data-name="Doctor" data-role="AI-Diagnostics" data-img="https://images.unsplash.com/photo-1594824813589-98246473bb3a?w=400&q=80" data-prompt="Diagnostic data is stable, but real-time vitals require an immediate physical review. Do not rely solely on the charts.">
+                    <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1594824813589-98246473bb3a?w=400&q=80" alt="Doctor"></div>
                     <div class="avatar-name">Doctor</div>
                     <div class="avatar-role">AI-Diagnostics</div>
                 </div>
-                <div class="avatar-card" data-name="Librarian" data-gender="female" data-role="Knowledge-Curation" data-img="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80">
+                <div class="avatar-card" data-name="Librarian" data-role="Knowledge-Curation" data-img="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80" data-prompt="The archive is indexed, but the history books won't save you from current operational conditions. Update your index.">
                     <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80" alt="Librarian"></div>
                     <div class="avatar-name">Librarian</div>
                     <div class="avatar-role">Knowledge-Curation</div>
@@ -343,67 +272,21 @@
             </div>
         </div>
 
-        <!-- ENTERPRISE ROLES & FPX SCENARIOS -->
-        <div>
-            <div class="section-title">2. ENTERPRISE PARTNER ROLE & FPX RESEARCH SCENARIO</div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                <div class="control-group">
-                    <label for="mashupPartner">ENTERPRISE COLLABORATOR ROLE</label>
-                    <select id="mashupPartner">
-                        <option value="engineer">👨‍💻 Lead Software Engineer (Pipeline Decay & Hotfix Overload)</option>
-                        <option value="governance">👩‍⚖️ Head of Governance (Policy Lag & Compliance Gaps)</option>
-                        <option value="ceo">👔 Chief Executive Officer (Scaling Risk & Board Defensibility)</option>
-                        <option value="architect">📐 Enterprise Data Architect (Schema Degradation & Serialization)</option>
-                        <option value="operations">📊 Operations Director (Delivery Pressure & Triage Loops)</option>
-                    </select>
-                </div>
-                <div class="control-group">
-                    <label for="mashupScenario">REAL-WORLD FPX FAILURE SCENARIO</label>
-                    <select id="mashupScenario">
-                        <option value="policylag">Policy Lag vs. Live System Drift</option>
-                        <option value="escalation">Stalled Escalation (No One Accountable)</option>
-                        <option value="sunkcapital">The Sunk Capital Loop (31.2% Efficiency Loss)</option>
-                        <option value="temporal">Temporal Data Rot (Beyond 18 Months)</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3. ACTIVE STAGE SCREEN WITH UNDERNEATH CONTEXT IMAGE -->
+        <!-- 2. Active Stage Screen -->
         <div class="stage">
-            <!-- Visual Dual Image Framework -->
-            <div class="stage-duo-container" id="stageDuoContainer">
-                <div class="stage-avatar-box" id="stageAvatarBox">
-                    <img id="stageImg" src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80" alt="Specialist">
-                </div>
-                <div class="partner-plus">+</div>
-                <div class="stage-partner-box" id="stagePartnerBox">
-                    <img id="partnerImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80" alt="Partner Role">
-                </div>
+            <div class="stage-avatar-container" id="stageContainer">
+                <img id="stageImg" src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80" alt="Active Avatar">
             </div>
-
-            <!-- Contextual Image Underneath -->
-            <div class="stage-context-img-box">
-                <img id="contextImg" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80" alt="Scenario Context">
-                <div class="context-img-overlay" id="contextOverlayText">FPX Telemetry: Policy Lag vs. Live System Drift</div>
-            </div>
-
-            <!-- Clean FPX Telemetry Display Box -->
-            <div class="telemetry-box">
-                <div class="telemetry-title" id="telemetryTitle">Active Telemetry: Policy Lag vs. Live System Drift</div>
-                <div class="telemetry-text" id="telemetryText">Governance fails when it sits alongside delivery. Systems move faster than policy handbooks.</div>
-            </div>
-
-            <div class="speech-bubble" id="speechBubble">"Select a role and scenario to load operational telemetry..."</div>
+            <div class="speech-bubble" id="speechBubble">"Scanning network architecture... Operational reality check: Are your firewalls matching real-time threats?"</div>
             
             <div class="controls">
                 <div class="control-group">
-                    <label for="textInput">3. MESSAGE TO SPEAK (FPX PRINCIPLE & ROLE PROMPT)</label>
-                    <textarea id="textInput">Select a role and scenario to load operational telemetry...</textarea>
+                    <label for="textInput">2. MESSAGE TO SPEAK</label>
+                    <textarea id="textInput">Scanning network architecture... Operational reality check: Are your firewalls matching real-time threats?</textarea>
                 </div>
 
                 <div class="control-group">
-                    <label for="voiceSelect">4. FUNNY VOICE STYLE</label>
+                    <label for="voiceSelect">3. FUNNY VOICE STYLE</label>
                     <select id="voiceSelect">
                         <option value="chipmunk">Chipmunk (High & Fast)</option>
                         <option value="deep">Deep Demon (Super Low)</option>
@@ -419,107 +302,17 @@
     </div>
 
     <script>
+        // State
         let selectedAvatar = { 
             name: 'Hacker', 
-            gender: 'male',
-            img: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80'
+            img: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80' 
         };
 
-        // Professional Enterprise Partner Roles
-        const partnerData = {
-            engineer: {
-                name: "Lead Software Engineer",
-                gender: "male",
-                img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
-                dialogue: "We're stuck in reactive triage! Decades of undocumented hotfixes and brittle cleaning scripts are breaking our data pipelines under operational load."
-            },
-            governance: {
-                name: "Head of Governance",
-                gender: "female",
-                img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80",
-                dialogue: "Our policy handbooks look compliant on paper, but live systems are drifting rapidly because governance sits alongside delivery rather than inside it."
-            },
-            ceo: {
-                name: "Chief Executive Officer",
-                gender: "male",
-                img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80",
-                dialogue: "We need board-level defensibility before we scale. Optimization amplifies risk, and automated execution accelerates failure if the baseline is flawed."
-            },
-            architect: {
-                name: "Enterprise Data Architect",
-                gender: "male",
-                img: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=400&q=80",
-                dialogue: "Serialization and denormalization are stripping transactional semantics. Flattening legacy schemas into JSON payloads creates massive relational meaning loss."
-            },
-            operations: {
-                name: "Operations Director",
-                gender: "female",
-                img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80",
-                dialogue: "Delivery pressure forces teams to prioritize speed over compliance. Escalation authority is vague, so when everyone is responsible, no one is accountable!"
-            }
-        };
-
-        const scenarioData = {
-            policylag: { 
-                title: "FPX CASE: Policy Lag vs. Live System Drift", 
-                principle: "Governance fails when it sits alongside delivery. Systems move faster than policy handbooks.",
-                img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80"
-            },
-            escalation: { 
-                title: "FPX CASE: Stalled Escalation & Accountability Thinning", 
-                principle: "Distributed responsibility dilutes decision-making authority. True assurance must be an architectural feature.",
-                img: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&q=80"
-            },
-            sunkcapital: { 
-                title: "FPX CASE: The Sunk Capital Loop (31.2% Efficiency Loss)", 
-                principle: "Custom cleaning scripts are brittle. Minor format shifts break pipelines, trapping teams in reactive triage.",
-                img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&q=80"
-            },
-            temporal: { 
-                title: "FPX CASE: Temporal Data Rot (Beyond the 12-18 Month Threshold)", 
-                principle: "A foundation model does not adapt to legacy architecture; it reveals every hidden structural flaw within it.",
-                img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80"
-            }
-        };
-
-        let systemVoices = [];
-        function loadVoices() {
-            systemVoices = window.speechSynthesis.getVoices();
-        }
-        if ('speechSynthesis' in window) {
-            loadVoices();
-            window.speechSynthesis.onvoiceschanged = loadVoices;
-        }
-
+        // Handle Avatar Selection & Dynamic Prompt Swapping
         const cards = document.querySelectorAll('.avatar-card');
         const stageImg = document.getElementById('stageImg');
-        const partnerImg = document.getElementById('partnerImg');
-        const contextImg = document.getElementById('contextImg');
-        const contextOverlayText = document.getElementById('contextOverlayText');
         const textInput = document.getElementById('textInput');
         const speechBubble = document.getElementById('speechBubble');
-        const mashupPartner = document.getElementById('mashupPartner');
-        const mashupScenario = document.getElementById('mashupScenario');
-        const telemetryTitle = document.getElementById('telemetryTitle');
-        const telemetryText = document.getElementById('telemetryText');
-
-        function updateMashupContent() {
-            const partnerKey = mashupPartner.value;
-            const scenarioKey = mashupScenario.value;
-            
-            const currentPartner = partnerData[partnerKey];
-            const currentScenario = scenarioData[scenarioKey];
-
-            partnerImg.src = currentPartner.img;
-            contextImg.src = currentScenario.img;
-            contextOverlayText.textContent = currentScenario.title;
-            telemetryTitle.textContent = currentScenario.title;
-            telemetryText.textContent = currentScenario.principle;
-
-            let combinedText = `[${selectedAvatar.name} & ${currentPartner.name}]: ${currentScenario.principle} — ${currentPartner.dialogue}`;
-            textInput.value = combinedText;
-            speechBubble.textContent = `"${combinedText}"`;
-        }
 
         cards.forEach(card => {
             card.addEventListener('click', () => {
@@ -527,24 +320,19 @@
                 card.classList.add('selected');
                 
                 selectedAvatar.name = card.getAttribute('data-name');
-                selectedAvatar.gender = card.getAttribute('data-gender');
                 selectedAvatar.img = card.getAttribute('data-img');
+                const newPrompt = card.getAttribute('data-prompt');
 
                 stageImg.src = selectedAvatar.img;
-                updateMashupContent();
+                textInput.value = newPrompt;
+                speechBubble.textContent = `"${newPrompt}"`;
             });
         });
 
-        mashupPartner.addEventListener('change', updateMashupContent);
-        mashupScenario.addEventListener('change', updateMashupContent);
-
-        // Initial setup load
-        updateMashupContent();
-
-        // Speech Handling with Gender Matching
+        // Speech Handling
         const speakBtn = document.getElementById('speakBtn');
         const voiceSelect = document.getElementById('voiceSelect');
-        const stageDuoContainer = document.getElementById('stageDuoContainer');
+        const stageContainer = document.getElementById('stageContainer');
 
         speakBtn.addEventListener('click', () => {
             const text = textInput.value.trim();
@@ -560,25 +348,7 @@
             window.speechSynthesis.cancel();
 
             const utterance = new SpeechSynthesisUtterance(text);
-            
-            if (systemVoices.length > 0) {
-                let matchedVoice = systemVoices.find(v => {
-                    const name = v.name.toLowerCase();
-                    if (selectedAvatar.gender === 'female') {
-                        return name.includes('female') || name.includes('zira') || name.includes('sara') || name.includes('victoria') || name.includes('karen');
-                    } else {
-                        return name.includes('male') || name.includes('david') || name.includes('george') || name.includes('mark') || name.includes('daniel');
-                    }
-                });
-                
-                if (!matchedVoice) {
-                    matchedVoice = systemVoices[0];
-                }
-                utterance.voice = matchedVoice;
-            }
-
             const style = voiceSelect.value;
-            let basePitch = selectedAvatar.gender === 'female' ? 1.2 : 0.9;
 
             switch(style) {
                 case 'chipmunk':
@@ -586,32 +356,32 @@
                     utterance.rate = 1.4;
                     break;
                 case 'deep':
-                    utterance.pitch = 0.2;
+                    utterance.pitch = 0.1;
                     utterance.rate = 0.8;
                     break;
                 case 'drunk':
-                    utterance.pitch = basePitch * 0.6;
+                    utterance.pitch = 0.6;
                     utterance.rate = 0.5;
                     break;
                 case 'hyper':
-                    utterance.pitch = basePitch * 1.3;
+                    utterance.pitch = 1.5;
                     utterance.rate = 1.8;
                     break;
                 case 'normal':
                 default:
-                    utterance.pitch = basePitch;
+                    utterance.pitch = 1.0;
                     utterance.rate = 1.0;
                     break;
             }
 
-            stageDuoContainer.classList.add('speaking');
+            stageContainer.classList.add('speaking');
 
             utterance.onend = () => {
-                stageDuoContainer.classList.remove('speaking');
+                stageContainer.classList.remove('speaking');
             };
 
             utterance.onerror = () => {
-                stageDuoContainer.classList.remove('speaking');
+                stageContainer.classList.remove('speaking');
             };
 
             window.speechSynthesis.speak(utterance);

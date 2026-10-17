@@ -43,7 +43,7 @@
 
         .container {
             width: 100%;
-            max-width: 900px;
+            max-width: 950px;
             display: flex;
             flex-direction: column;
             gap: 25px;
@@ -112,7 +112,7 @@
             color: var(--text-muted);
         }
 
-        /* Active Display Screen */
+        /* Active Display Stage Screen */
         .stage {
             background-color: var(--card-bg);
             border: 1px solid #1f2937;
@@ -125,22 +125,37 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.4);
         }
 
-        .stage-avatar-container {
-            width: 130px;
-            height: 130px;
+        /* Dual-Image Partner Display Frame */
+        .stage-duo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .stage-avatar-box, .stage-partner-box {
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             overflow: hidden;
             border: 3px solid var(--accent);
-            margin-bottom: 15px;
-            box-shadow: 0 0 20px var(--accent-glow);
+            box-shadow: 0 0 15px var(--accent-glow);
             transition: transform 0.2s;
+            background: #000;
         }
 
-        .stage-avatar-container img {
+        .stage-avatar-box img, .stage-partner-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: top;
+        }
+
+        .partner-plus {
+            font-size: 1.5rem;
+            color: var(--accent);
+            font-weight: bold;
         }
 
         .speaking {
@@ -150,6 +165,34 @@
         @keyframes pulse-glow {
             0% { transform: scale(1); box-shadow: 0 0 10px var(--accent); }
             100% { transform: scale(1.05); box-shadow: 0 0 25px var(--accent); }
+        }
+
+        /* Scenario Clip Preview Box */
+        .clip-preview-box {
+            width: 100%;
+            height: 80px;
+            border-radius: 10px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-end;
+            border: 1px solid #334155;
+            overflow: hidden;
+        }
+
+        .clip-overlay {
+            background: rgba(11, 15, 25, 0.85);
+            width: 100%;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-align: left;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .speech-bubble {
@@ -232,14 +275,6 @@
         button.speak-btn:active {
             transform: scale(0.98);
         }
-
-        .divider {
-            border: 0;
-            height: 1px;
-            background: #1f2937;
-            width: 100%;
-            margin: 10px 0;
-        }
     </style>
 </head>
 <body>
@@ -267,8 +302,8 @@
                     <div class="avatar-name">Office</div>
                     <div class="avatar-role">Modern-Workflow</div>
                 </div>
-                <div class="avatar-card" data-name="Doctor" data-gender="female" data-role="AI-Diagnostics" data-img="https://images.unsplash.com/photo-1594824813589-98246473bb3a?w=400&q=80" data-prompt="Diagnostic data is stable, but real-time vitals require an immediate physical review. Do not rely solely on the charts.">
-                    <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1594824813589-98246473bb3a?w=400&q=80" alt="Doctor"></div>
+                <div class="avatar-card" data-name="Doctor" data-gender="female" data-role="AI-Diagnostics" data-img="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80" data-prompt="Diagnostic data is stable, but real-time vitals require an immediate physical review. Do not rely solely on the charts.">
+                    <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80" alt="Doctor"></div>
                     <div class="avatar-name">Doctor</div>
                     <div class="avatar-role">AI-Diagnostics</div>
                 </div>
@@ -280,17 +315,18 @@
             </div>
         </div>
 
-        <!-- NEW SECTION: Scene & Animal Mashup Selection -->
+        <!-- SCENE & ANIMAL / INSECT MASHUP SECTION -->
         <div>
-            <div class="section-title">2. SCENE & FUNNY ANIMAL MASHUP</div>
+            <div class="section-title">2. SCENE & COMEDY ANIMAL / INSECT PARTNER</div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                 <div class="control-group">
-                    <label for="mashupAnimal">SELECT COMEDY ANIMAL PARTNER</label>
+                    <label for="mashupAnimal">SELECT PARTNER (COW, DOG, HORSE, CAT, BUG)</label>
                     <select id="mashupAnimal">
                         <option value="cow">🐄 Cow (The Stock Market Predictor)</option>
                         <option value="dog">🐕 Dog (Chief Security Auditor)</option>
                         <option value="horse">🐎 Horse (Data Highway Hopper)</option>
                         <option value="cat">🐈 Cat (Server Room Overlord)</option>
+                        <option value="bug">🐛 System Bug (The Reality Glitch)</option>
                     </select>
                 </div>
                 <div class="control-group">
@@ -298,17 +334,34 @@
                     <select id="mashupScenario">
                         <option value="glitch">The Great System Glitch</option>
                         <option value="meeting">The Emergency Boardroom Crisis</option>
+                        <option value="bridge">The Broken Bridge Reality Test</option>
                         <option value="coffee">The Missing Coffee Supply Chain</option>
                     </select>
                 </div>
             </div>
         </div>
 
-        <!-- 3. Active Stage Screen -->
+        <!-- 3. ACTIVE STAGE SCREEN WITH CLIP PREVIEW -->
         <div class="stage">
-            <div class="stage-avatar-container" id="stageContainer">
-                <img id="stageImg" src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80" alt="Active Avatar">
+            <!-- Visual Dual Image Framework -->
+            <div class="stage-duo-container" id="stageDuoContainer">
+                <div class="stage-avatar-box" id="stageAvatarBox">
+                    <img id="stageImg" src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80" alt="Specialist">
+                </div>
+                <div class="partner-plus">+</div>
+                <div class="stage-partner-box" id="stagePartnerBox">
+                    <img id="partnerImg" src="https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=400&q=80" alt="Animal Partner">
+                </div>
             </div>
+
+            <!-- Dynamic Scenario Clip Preview Box -->
+            <div class="clip-preview-box" id="clipPreviewBox" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80');">
+                <div class="clip-overlay">
+                    <span id="clipTitleText">🎬 SCENARIO CLIP: The Great System Glitch</span>
+                    <span style="font-size: 0.7rem; background: var(--accent); color: #0b0f19; padding: 2px 6px; border-radius: 4px;">LIVE FEED</span>
+                </div>
+            </div>
+
             <div class="speech-bubble" id="speechBubble">"Scanning network architecture... Operational reality check: Are your firewalls matching real-time threats?"</div>
             
             <div class="controls">
@@ -337,16 +390,49 @@
         let selectedAvatar = { 
             name: 'Hacker', 
             gender: 'male',
-            img: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80',
-            basePrompt: "Scanning network architecture... Operational reality check: Are your firewalls matching real-time threats?"
+            img: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80'
+        };
+
+        // Animal/Insect image libraries & backgrounds
+        const animalData = {
+            cow: {
+                name: "Cow",
+                img: "https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=400&q=80",
+                dialogue: "Moo! The economic model looks green on paper, but I just chewed through the power generator. Operational reality rules!"
+            },
+            dog: {
+                name: "Dog",
+                img: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&q=80",
+                dialogue: "Woof! The firewall logs say safe, but I smell a data leak under the couch. Dismiss the model!"
+            },
+            horse: {
+                name: "Horse",
+                img: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a2?w=400&q=80",
+                dialogue: "Neigh! The digital highway map shows a green light, but this bridge is out in reality. Stop the car!"
+            },
+            cat: {
+                name: "Cat",
+                img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400&q=80",
+                dialogue: "Purr... Your neural network prediction is cute, but I just pushed the emergency server shutdown button."
+            },
+            bug: {
+                name: "System Bug",
+                img: "https://images.unsplash.com/photo-1533450718592-29d45635f0a9?w=400&q=80",
+                dialogue: "Bzzzt! I am a microscopic insect inside the code loop. Your dataset is clean, but my bite crashed the logic tree!"
+            }
+        };
+
+        const scenarioBackgrounds = {
+            glitch: { title: "🎬 CLIP: The Great System Glitch", bg: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80" },
+            meeting: { title: "🎬 CLIP: Emergency Boardroom Crisis", bg: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&q=80" },
+            bridge: { title: "🎬 CLIP: The Broken Bridge Reality Test", bg: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&q=80" },
+            coffee: { title: "🎬 CLIP: Missing Coffee Supply Chain", bg: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80" }
         };
 
         let systemVoices = [];
-
         function loadVoices() {
             systemVoices = window.speechSynthesis.getVoices();
         }
-
         if ('speechSynthesis' in window) {
             loadVoices();
             window.speechSynthesis.onvoiceschanged = loadVoices;
@@ -354,29 +440,32 @@
 
         const cards = document.querySelectorAll('.avatar-card');
         const stageImg = document.getElementById('stageImg');
+        const partnerImg = document.getElementById('partnerImg');
         const textInput = document.getElementById('textInput');
         const speechBubble = document.getElementById('speechBubble');
         const mashupAnimal = document.getElementById('mashupAnimal');
         const mashupScenario = document.getElementById('mashupScenario');
+        const clipPreviewBox = document.getElementById('clipPreviewBox');
+        const clipTitleText = document.getElementById('clipTitleText');
 
-        // Function to combine human specialist + animal + scenario into a funny outcome text
-        function updateMashupPrompt() {
-            const animal = mashupAnimal.value;
-            const scenario = mashupScenario.value;
-            let text = "";
+        function updateMashupContent() {
+            const animalKey = mashupAnimal.value;
+            const scenarioKey = mashupScenario.value;
+            
+            const currentAnimal = animalData[animalKey];
+            const currentScenario = scenarioBackgrounds[scenarioKey];
 
-            if (animal === 'cow') {
-                text = `[${selectedAvatar.name} & Cow Partnership]: Moo! The spreadsheet says pasture yields are up, but the cow is eating the server cables. Operational reality overrides the spreadsheet!`;
-            } else if (animal === 'dog') {
-                text = `[${selectedAvatar.name} & Guard Dog]: Woof! The security dataset says perimeter is clear, but the dog is barking at a ghost in the database. Dismiss the data!`;
-            } else if (animal === 'horse') {
-                text = `[${selectedAvatar.name} & Office Horse]: Neigh! The navigation map shows a clear highway, but this horse refuses to cross the broken bridge. Reality wins!`;
-            } else if (animal === 'cat') {
-                text = `[${selectedAvatar.name} & Server Cat]: Purr... The AI model is running smoothly, but the cat just stepped on the master shutdown switch. Crash the reality!`;
-            }
+            // Update partner image
+            partnerImg.src = currentAnimal.img;
 
-            textInput.value = text;
-            speechBubble.textContent = `"${text}"`;
+            // Update scenario clip background & title overlay
+            clipPreviewBox.style.backgroundImage = `url('${currentScenario.bg}')`;
+            clipTitleText.textContent = currentScenario.title;
+
+            // Generate combined funny output prompt
+            let combinedText = `[${selectedAvatar.name} & ${currentAnimal.name} in ${scenarioKey.toUpperCase()}]: ${currentAnimal.dialogue}`;
+            textInput.value = combinedText;
+            speechBubble.textContent = `"${combinedText}"`;
         }
 
         cards.forEach(card => {
@@ -387,20 +476,19 @@
                 selectedAvatar.name = card.getAttribute('data-name');
                 selectedAvatar.gender = card.getAttribute('data-gender');
                 selectedAvatar.img = card.getAttribute('data-img');
-                selectedAvatar.basePrompt = card.getAttribute('data-prompt');
 
                 stageImg.src = selectedAvatar.img;
-                updateMashupPrompt();
+                updateMashupContent();
             });
         });
 
-        mashupAnimal.addEventListener('change', updateMashupPrompt);
-        mashupScenario.addEventListener('change', updateMashupPrompt);
+        mashupAnimal.addEventListener('change', updateMashupContent);
+        mashupScenario.addEventListener('change', updateMashupContent);
 
         // Speech Handling with Gender Matching
         const speakBtn = document.getElementById('speakBtn');
         const voiceSelect = document.getElementById('voiceSelect');
-        const stageContainer = document.getElementById('stageContainer');
+        const stageDuoContainer = document.getElementById('stageDuoContainer');
 
         speakBtn.addEventListener('click', () => {
             const text = textInput.value.trim();
@@ -460,18 +548,18 @@
                     break;
             }
 
-            stageContainer.classList.add('speaking');
+            stageDuoContainer.classList.add('speaking');
 
             utterance.onend = () => {
-                stageContainer.classList.remove('speaking');
+                stageDuoContainer.classList.remove('speaking');
             };
 
             utterance.onerror = () => {
-                stageContainer.classList.remove('speaking');
+                stageDuoContainer.classList.remove('speaking');
             };
 
             window.speechSynthesis.speak(utterance);
         });
     </script>
 </body>
-</html>>
+</html>

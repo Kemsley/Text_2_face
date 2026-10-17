@@ -244,27 +244,27 @@
         <div>
             <div class="section-title">1. CHOOSE YOUR AI SPECIALIST</div>
             <div class="avatar-grid" id="avatarGrid">
-                <div class="avatar-card selected" data-name="Hacker" data-role="Cyber-Security" data-img="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80">
+                <div class="avatar-card selected" data-name="Hacker" data-gender="male" data-role="Cyber-Security" data-img="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80" data-prompt="Scanning network architecture... Operational reality check: Are your firewalls matching real-time threats?">
                     <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80" alt="Hacker"></div>
                     <div class="avatar-name">Hacker</div>
                     <div class="avatar-role">Cyber-Security</div>
                 </div>
-                <div class="avatar-card" data-name="Researcher" data-role="Data-Analytics" data-img="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80">
+                <div class="avatar-card" data-name="Researcher" data-gender="female" data-role="Data-Analytics" data-img="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" data-prompt="Dataset verified. However, operational reality indicates the underlying metrics have shifted. Recalibrate now.">
                     <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" alt="Researcher"></div>
                     <div class="avatar-name">Researcher</div>
                     <div class="avatar-role">Data-Analytics</div>
                 </div>
-                <div class="avatar-card" data-name="Office" data-role="Modern-Workflow" data-img="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80">
+                <div class="avatar-card" data-name="Office" data-gender="male" data-role="Modern-Workflow" data-img="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" data-prompt="Workflow automated, but schedules don't match the field. Dismiss the old data or crash the operational reality.">
                     <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="Office"></div>
                     <div class="avatar-name">Office</div>
                     <div class="avatar-role">Modern-Workflow</div>
                 </div>
-                <div class="avatar-card" data-name="Doctor" data-role="AI-Diagnostics" data-img="https://images.unsplash.com/photo-1594824813589-98246473bb3a?w=400&q=80">
+                <div class="avatar-card" data-name="Doctor" data-gender="female" data-role="AI-Diagnostics" data-img="https://images.unsplash.com/photo-1594824813589-98246473bb3a?w=400&q=80" data-prompt="Diagnostic data is stable, but real-time vitals require an immediate physical review. Do not rely solely on the charts.">
                     <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1594824813589-98246473bb3a?w=400&q=80" alt="Doctor"></div>
                     <div class="avatar-name">Doctor</div>
                     <div class="avatar-role">AI-Diagnostics</div>
                 </div>
-                <div class="avatar-card" data-name="Librarian" data-role="Knowledge-Curation" data-img="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80">
+                <div class="avatar-card" data-name="Librarian" data-gender="female" data-role="Knowledge-Curation" data-img="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80" data-prompt="The archive is indexed, but the history books won't save you from current operational conditions. Update your index.">
                     <div class="avatar-img-container"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80" alt="Librarian"></div>
                     <div class="avatar-name">Librarian</div>
                     <div class="avatar-role">Knowledge-Curation</div>
@@ -277,12 +277,12 @@
             <div class="stage-avatar-container" id="stageContainer">
                 <img id="stageImg" src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80" alt="Active Avatar">
             </div>
-            <div class="speech-bubble" id="speechBubble">"Operational reality does not wait for your dataset to update."</div>
+            <div class="speech-bubble" id="speechBubble">"Scanning network architecture... Operational reality check: Are your firewalls matching real-time threats?"</div>
             
             <div class="controls">
                 <div class="control-group">
                     <label for="textInput">2. MESSAGE TO SPEAK</label>
-                    <textarea id="textInput" placeholder="Type what you want your AI specialist to say...">Dismiss the data, crash the reality. Operational reality is updating now.</textarea>
+                    <textarea id="textInput">Scanning network architecture... Operational reality check: Are your firewalls matching real-time threats?</textarea>
                 </div>
 
                 <div class="control-group">
@@ -305,12 +305,27 @@
         // State
         let selectedAvatar = { 
             name: 'Hacker', 
+            gender: 'male',
             img: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80' 
         };
 
-        // Handle Avatar Selection
+        let systemVoices = [];
+
+        // Load available browser voices
+        function loadVoices() {
+            systemVoices = window.speechSynthesis.getVoices();
+        }
+
+        if ('speechSynthesis' in window) {
+            loadVoices();
+            window.speechSynthesis.onvoiceschanged = loadVoices;
+        }
+
+        // Handle Avatar Selection & Dynamic Prompt Swapping
         const cards = document.querySelectorAll('.avatar-card');
         const stageImg = document.getElementById('stageImg');
+        const textInput = document.getElementById('textInput');
+        const speechBubble = document.getElementById('speechBubble');
 
         cards.forEach(card => {
             card.addEventListener('click', () => {
@@ -318,16 +333,19 @@
                 card.classList.add('selected');
                 
                 selectedAvatar.name = card.getAttribute('data-name');
+                selectedAvatar.gender = card.getAttribute('data-gender');
                 selectedAvatar.img = card.getAttribute('data-img');
+                const newPrompt = card.getAttribute('data-prompt');
+
                 stageImg.src = selectedAvatar.img;
+                textInput.value = newPrompt;
+                speechBubble.textContent = `"${newPrompt}"`;
             });
         });
 
-        // Speech Handling
+        // Speech Handling with Gender Matching
         const speakBtn = document.getElementById('speakBtn');
-        const textInput = document.getElementById('textInput');
         const voiceSelect = document.getElementById('voiceSelect');
-        const speechBubble = document.getElementById('speechBubble');
         const stageContainer = document.getElementById('stageContainer');
 
         speakBtn.addEventListener('click', () => {
@@ -344,7 +362,29 @@
             window.speechSynthesis.cancel();
 
             const utterance = new SpeechSynthesisUtterance(text);
+            
+            // Match voice based on gender selection
+            if (systemVoices.length > 0) {
+                let matchedVoice = systemVoices.find(v => {
+                    const name = v.name.toLowerCase();
+                    if (selectedAvatar.gender === 'female') {
+                        return name.includes('female') || name.includes('zira') || name.includes('sara') || name.includes('victoria') || name.includes('karen');
+                    } else {
+                        return name.includes('male') || name.includes('david') || name.includes('george') || name.includes('mark') || name.includes('daniel');
+                    }
+                });
+                
+                // Fallback to first available voice if specific match isn't found
+                if (!matchedVoice) {
+                    matchedVoice = systemVoices[0];
+                }
+                utterance.voice = matchedVoice;
+            }
+
             const style = voiceSelect.value;
+
+            // Apply funny voice parameters + base pitch adjustments for gender feel
+            let basePitch = selectedAvatar.gender === 'female' ? 1.2 : 0.9;
 
             switch(style) {
                 case 'chipmunk':
@@ -352,20 +392,20 @@
                     utterance.rate = 1.4;
                     break;
                 case 'deep':
-                    utterance.pitch = 0.1;
+                    utterance.pitch = 0.2;
                     utterance.rate = 0.8;
                     break;
                 case 'drunk':
-                    utterance.pitch = 0.6;
+                    utterance.pitch = basePitch * 0.6;
                     utterance.rate = 0.5;
                     break;
                 case 'hyper':
-                    utterance.pitch = 1.5;
+                    utterance.pitch = basePitch * 1.3;
                     utterance.rate = 1.8;
                     break;
                 case 'normal':
                 default:
-                    utterance.pitch = 1.0;
+                    utterance.pitch = basePitch;
                     utterance.rate = 1.0;
                     break;
             }

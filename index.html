@@ -315,27 +315,27 @@
             </div>
         </div>
 
-        <!-- SCENE & ANIMAL / INSECT MASHUP SECTION -->
+        <!-- REAL FPX SCENARIOS & ORGANIZATIONAL ANIMAL ROLES -->
         <div>
-            <div class="section-title">2. SCENE & COMEDY ANIMAL / INSECT PARTNER</div>
+            <div class="section-title">2. FPX RESEARCH SCENARIOS & ORGANIZATIONAL ROLE FAILURES</div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                 <div class="control-group">
-                    <label for="mashupAnimal">SELECT PARTNER (COW, DOG, HORSE, CAT, BUG)</label>
+                    <label for="mashupAnimal">ORGANIZATIONAL ANIMAL / INSECT ROLE</label>
                     <select id="mashupAnimal">
-                        <option value="cow">🐄 Cow (The Stock Market Predictor)</option>
-                        <option value="dog">🐕 Dog (Chief Security Auditor)</option>
-                        <option value="horse">🐎 Horse (Data Highway Hopper)</option>
-                        <option value="cat">🐈 Cat (Server Room Overlord)</option>
-                        <option value="bug">🐛 System Bug (The Reality Glitch)</option>
+                        <option value="cow">🐄 Cow (The Legacy Baseline Asset - Stagnant Historical Data)</option>
+                        <option value="dog">🐕 Dog (Chief Security Auditor - Stalled Escalation & Vague Authority)</option>
+                        <option value="horse">🐎 Horse (Data Highway Hopper - Scaling Automation Before Stabilization)</option>
+                        <option value="cat">🐈 Cat (Server Room Overlord - Silent Divergence & Undocumented Hotfixes)</option>
+                        <option value="bug">🐛 System Bug (The Reality Glitch - Pipeline Decay & Hardcoded Override Failures)</option>
                     </select>
                 </div>
                 <div class="control-group">
-                    <label for="mashupScenario">SELECT OPERATIONAL SCENARIO</label>
+                    <label for="mashupScenario">REAL-WORLD FPX FAILURE SCENARIO</label>
                     <select id="mashupScenario">
-                        <option value="glitch">The Great System Glitch</option>
-                        <option value="meeting">The Emergency Boardroom Crisis</option>
-                        <option value="bridge">The Broken Bridge Reality Test</option>
-                        <option value="coffee">The Missing Coffee Supply Chain</option>
+                        <option value="policylag">Policy Lag vs. Live System Drift (Governance Sits Aside Delivery)</option>
+                        <option value="escalation">Stalled Escalation (When Everyone Is Responsible, No One Is Accountable)</option>
+                        <option value="sunkcapital">The Sunk Capital Loop (31.2% Efficiency Loss in Reactive Triage)</option>
+                        <option value="temporal">Temporal Data Rot (Using Multi-Year Decayed Baselines for Real-Time Inference)</option>
                     </select>
                 </div>
             </div>
@@ -350,15 +350,15 @@
                 </div>
                 <div class="partner-plus">+</div>
                 <div class="stage-partner-box" id="stagePartnerBox">
-                    <img id="partnerImg" src="https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=400&q=80" alt="Animal Partner">
+                    <img id="partnerImg" src="https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=400&q=80" alt="Animal Role">
                 </div>
             </div>
 
             <!-- Dynamic Scenario Clip Preview Box -->
             <div class="clip-preview-box" id="clipPreviewBox" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80');">
                 <div class="clip-overlay">
-                    <span id="clipTitleText">🎬 SCENARIO CLIP: The Great System Glitch</span>
-                    <span style="font-size: 0.7rem; background: var(--accent); color: #0b0f19; padding: 2px 6px; border-radius: 4px;">LIVE FEED</span>
+                    <span id="clipTitleText">🎬 FPX CASE: Policy Lag vs. Live System Drift</span>
+                    <span style="font-size: 0.7rem; background: var(--accent); color: #0b0f19; padding: 2px 6px; border-radius: 4px;">FPX-LIVE</span>
                 </div>
             </div>
 
@@ -366,7 +366,7 @@
             
             <div class="controls">
                 <div class="control-group">
-                    <label for="textInput">3. MESSAGE TO SPEAK (AUTO-GENERATED OR CUSTOM)</label>
+                    <label for="textInput">3. MESSAGE TO SPEAK (FPX PRINCIPLE & ROLE PROMPT)</label>
                     <textarea id="textInput">Scanning network architecture... Operational reality check: Are your firewalls matching real-time threats?</textarea>
                 </div>
 
@@ -393,40 +393,56 @@
             img: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80'
         };
 
-        // Animal/Insect image libraries & backgrounds
+        // Animal / Insect organizational failure profiles (with true insect macro image for the bug)
         const animalData = {
             cow: {
-                name: "Cow",
+                name: "Cow (Legacy Baseline Asset)",
                 img: "https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=400&q=80",
-                dialogue: "Moo! The economic model looks green on paper, but I just chewed through the power generator. Operational reality rules!"
+                dialogue: "Moo! You pumped 15-year-old unrefined legacy data straight into the foundation model. Operational reality does not wait for your dataset to update!"
             },
             dog: {
-                name: "Dog",
+                name: "Dog (Chief Security Auditor)",
                 img: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&q=80",
-                dialogue: "Woof! The firewall logs say safe, but I smell a data leak under the couch. Dismiss the model!"
+                dialogue: "Woof! Risk was identified, but escalation authority stalled. When everyone is responsible in the handbook, no one is accountable in the system!"
             },
             horse: {
-                name: "Horse",
+                name: "Horse (Data Highway Hopper)",
                 img: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a2?w=400&q=80",
-                dialogue: "Neigh! The digital highway map shows a green light, but this bridge is out in reality. Stop the car!"
+                dialogue: "Neigh! You tried to scale automation before establishing baseline control. Optimization just amplified our failure at machine speed!"
             },
             cat: {
-                name: "Cat",
+                name: "Cat (Server Room Overlord)",
                 img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400&q=80",
-                dialogue: "Purr... Your neural network prediction is cute, but I just pushed the emergency server shutdown button."
+                dialogue: "Purr... We suffered a silent divergence. Undocumented human hotfixes and hardcoded overrides broke our pipeline integrity under operational load."
             },
             bug: {
-                name: "System Bug",
-                img: "https://images.unsplash.com/photo-1533450718592-29d45635f0a9?w=400&q=80",
-                dialogue: "Bzzzt! I am a microscopic insect inside the code loop. Your dataset is clean, but my bite crashed the logic tree!"
+                name: "System Bug (The Reality Glitch)",
+                img: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=400&q=80", // Macro insect image
+                dialogue: "Bzzzt! I am a hardcoded script break. Custom cleaning scripts degraded rapidly, plunging engineering teams into a 31.2% efficiency triage loop!"
             }
         };
 
-        const scenarioBackgrounds = {
-            glitch: { title: "🎬 CLIP: The Great System Glitch", bg: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80" },
-            meeting: { title: "🎬 CLIP: Emergency Boardroom Crisis", bg: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&q=80" },
-            bridge: { title: "🎬 CLIP: The Broken Bridge Reality Test", bg: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&q=80" },
-            coffee: { title: "🎬 CLIP: Missing Coffee Supply Chain", bg: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80" }
+        const scenarioData = {
+            policylag: { 
+                title: "🎬 FPX CASE: Policy Lag vs. Live System Drift", 
+                bg: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80",
+                principle: "Governance fails when it sits alongside delivery. Systems move faster than policy handbooks."
+            },
+            escalation: { 
+                title: "🎬 FPX CASE: Stalled Escalation & Accountability Thinning", 
+                bg: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&q=80",
+                principle: "Distributed responsibility dilutes decision-making authority. True assurance must be an architectural feature."
+            },
+            sunkcapital: { 
+                title: "🎬 FPX CASE: The Sunk Capital Loop (31.2% Efficiency Loss)", 
+                bg: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&q=80",
+                principle: "Custom cleaning scripts are brittle. Minor format shifts break pipelines, trapping teams in reactive triage."
+            },
+            temporal: { 
+                title: "🎬 FPX CASE: Temporal Data Rot (Beyond the 12-18 Month Threshold)", 
+                bg: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80",
+                principle: "A foundation model does not adapt to legacy architecture; it reveals every hidden structural flaw within it."
+            }
         };
 
         let systemVoices = [];
@@ -453,17 +469,13 @@
             const scenarioKey = mashupScenario.value;
             
             const currentAnimal = animalData[animalKey];
-            const currentScenario = scenarioBackgrounds[scenarioKey];
+            const currentScenario = scenarioData[scenarioKey];
 
-            // Update partner image
             partnerImg.src = currentAnimal.img;
-
-            // Update scenario clip background & title overlay
             clipPreviewBox.style.backgroundImage = `url('${currentScenario.bg}')`;
             clipTitleText.textContent = currentScenario.title;
 
-            // Generate combined funny output prompt
-            let combinedText = `[${selectedAvatar.name} & ${currentAnimal.name} in ${scenarioKey.toUpperCase()}]: ${currentAnimal.dialogue}`;
+            let combinedText = `[${selectedAvatar.name} & ${currentAnimal.name}]: ${currentScenario.principle} — ${currentAnimal.dialogue}`;
             textInput.value = combinedText;
             speechBubble.textContent = `"${combinedText}"`;
         }

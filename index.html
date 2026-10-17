@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FPX - Personal AI Team & Mashup Chatboard</title>
+    <title>FPX - Personal AI Team & Enterprise Collaboration Dashboard</title>
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -167,6 +167,36 @@
             100% { transform: scale(1.05); box-shadow: 0 0 25px var(--accent); }
         }
 
+        /* Contextual Image Underneath Stage */
+        .stage-context-img-box {
+            width: 100%;
+            height: 130px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            border: 1px solid #334155;
+            position: relative;
+        }
+
+        .stage-context-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .context-img-overlay {
+            position: absolute;
+            bottom: 0;
+            background: rgba(11, 15, 25, 0.85);
+            width: 100%;
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            color: var(--accent);
+            text-align: left;
+            box-sizing: border-box;
+            font-weight: 600;
+        }
+
         /* Clean FPX Telemetry Display Box */
         .telemetry-box {
             width: 100%;
@@ -313,18 +343,18 @@
             </div>
         </div>
 
-        <!-- REAL FPX SCENARIOS & ORGANIZATIONAL ANIMAL ROLES -->
+        <!-- ENTERPRISE ROLES & FPX SCENARIOS -->
         <div>
-            <div class="section-title">2. FPX RESEARCH SCENARIOS & ORGANIZATIONAL ROLE FAILURES</div>
+            <div class="section-title">2. ENTERPRISE PARTNER ROLE & FPX RESEARCH SCENARIO</div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                 <div class="control-group">
-                    <label for="mashupAnimal">ORGANIZATIONAL ANIMAL / INSECT ROLE</label>
-                    <select id="mashupAnimal">
-                        <option value="cow">🐄 Cow (The Legacy Baseline Asset)</option>
-                        <option value="dog">🐕 Dog (Chief Security Auditor)</option>
-                        <option value="horse">🐎 Horse (Data Highway Hopper)</option>
-                        <option value="cat">🐈 Cat (Server Room Overlord)</option>
-                        <option value="bug">🐛 System Bug (The Reality Glitch)</option>
+                    <label for="mashupPartner">ENTERPRISE COLLABORATOR ROLE</label>
+                    <select id="mashupPartner">
+                        <option value="engineer">👨‍💻 Lead Software Engineer (Pipeline Decay & Hotfix Overload)</option>
+                        <option value="governance">👩‍⚖️ Head of Governance (Policy Lag & Compliance Gaps)</option>
+                        <option value="ceo">👔 Chief Executive Officer (Scaling Risk & Board Defensibility)</option>
+                        <option value="architect">📐 Enterprise Data Architect (Schema Degradation & Serialization)</option>
+                        <option value="operations">📊 Operations Director (Delivery Pressure & Triage Loops)</option>
                     </select>
                 </div>
                 <div class="control-group">
@@ -339,7 +369,7 @@
             </div>
         </div>
 
-        <!-- 3. ACTIVE STAGE SCREEN WITH CLEAN TELEMETRY BOX -->
+        <!-- 3. ACTIVE STAGE SCREEN WITH UNDERNEATH CONTEXT IMAGE -->
         <div class="stage">
             <!-- Visual Dual Image Framework -->
             <div class="stage-duo-container" id="stageDuoContainer">
@@ -348,8 +378,14 @@
                 </div>
                 <div class="partner-plus">+</div>
                 <div class="stage-partner-box" id="stagePartnerBox">
-                    <img id="partnerImg" src="https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=400&q=80" alt="Animal Role">
+                    <img id="partnerImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80" alt="Partner Role">
                 </div>
+            </div>
+
+            <!-- Contextual Image Underneath -->
+            <div class="stage-context-img-box">
+                <img id="contextImg" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80" alt="Scenario Context">
+                <div class="context-img-overlay" id="contextOverlayText">FPX Telemetry: Policy Lag vs. Live System Drift</div>
             </div>
 
             <!-- Clean FPX Telemetry Display Box -->
@@ -389,51 +425,60 @@
             img: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80'
         };
 
-        // Guaranteed correct animal & insect macro images
-        const animalData = {
-            cow: {
-                name: "Cow (Legacy Baseline Asset)",
-                img: "https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=400&q=80",
-                dialogue: "Moo! You pumped 15-year-old unrefined legacy data straight into the foundation model. Operational reality does not wait for your dataset to update!"
+        // Professional Enterprise Partner Roles
+        const partnerData = {
+            engineer: {
+                name: "Lead Software Engineer",
+                gender: "male",
+                img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
+                dialogue: "We're stuck in reactive triage! Decades of undocumented hotfixes and brittle cleaning scripts are breaking our data pipelines under operational load."
             },
-            dog: {
-                name: "Dog (Chief Security Auditor)",
-                img: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&q=80",
-                dialogue: "Woof! Risk was identified, but escalation authority stalled. When everyone is responsible in the handbook, no one is accountable in the system!"
+            governance: {
+                name: "Head of Governance",
+                gender: "female",
+                img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80",
+                dialogue: "Our policy handbooks look compliant on paper, but live systems are drifting rapidly because governance sits alongside delivery rather than inside it."
             },
-            horse: {
-                name: "Horse (Data Highway Hopper)",
-                img: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a2?w=400&q=80",
-                dialogue: "Neigh! You tried to scale automation before establishing baseline control. Optimization just amplified our failure at machine speed!"
+            ceo: {
+                name: "Chief Executive Officer",
+                gender: "male",
+                img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80",
+                dialogue: "We need board-level defensibility before we scale. Optimization amplifies risk, and automated execution accelerates failure if the baseline is flawed."
             },
-            cat: {
-                name: "Cat (Server Room Overlord)",
-                img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400&q=80",
-                dialogue: "Purr... We suffered a silent divergence. Undocumented human hotfixes and hardcoded overrides broke our pipeline integrity under operational load."
+            architect: {
+                name: "Enterprise Data Architect",
+                gender: "male",
+                img: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=400&q=80",
+                dialogue: "Serialization and denormalization are stripping transactional semantics. Flattening legacy schemas into JSON payloads creates massive relational meaning loss."
             },
-            bug: {
-                name: "System Bug (The Reality Glitch)",
-                img: "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?w=400&q=80", // Macro insect image
-                dialogue: "Bzzzt! I am a hardcoded script break. Custom cleaning scripts degraded rapidly, plunging engineering teams into a 31.2% efficiency triage loop!"
+            operations: {
+                name: "Operations Director",
+                gender: "female",
+                img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80",
+                dialogue: "Delivery pressure forces teams to prioritize speed over compliance. Escalation authority is vague, so when everyone is responsible, no one is accountable!"
             }
         };
 
         const scenarioData = {
             policylag: { 
                 title: "FPX CASE: Policy Lag vs. Live System Drift", 
-                principle: "Governance fails when it sits alongside delivery. Systems move faster than policy handbooks."
+                principle: "Governance fails when it sits alongside delivery. Systems move faster than policy handbooks.",
+                img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80"
             },
             escalation: { 
                 title: "FPX CASE: Stalled Escalation & Accountability Thinning", 
-                principle: "Distributed responsibility dilutes decision-making authority. True assurance must be an architectural feature."
+                principle: "Distributed responsibility dilutes decision-making authority. True assurance must be an architectural feature.",
+                img: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&q=80"
             },
             sunkcapital: { 
                 title: "FPX CASE: The Sunk Capital Loop (31.2% Efficiency Loss)", 
-                principle: "Custom cleaning scripts are brittle. Minor format shifts break pipelines, trapping teams in reactive triage."
+                principle: "Custom cleaning scripts are brittle. Minor format shifts break pipelines, trapping teams in reactive triage.",
+                img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&q=80"
             },
             temporal: { 
                 title: "FPX CASE: Temporal Data Rot (Beyond the 12-18 Month Threshold)", 
-                principle: "A foundation model does not adapt to legacy architecture; it reveals every hidden structural flaw within it."
+                principle: "A foundation model does not adapt to legacy architecture; it reveals every hidden structural flaw within it.",
+                img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80"
             }
         };
 
@@ -449,25 +494,29 @@
         const cards = document.querySelectorAll('.avatar-card');
         const stageImg = document.getElementById('stageImg');
         const partnerImg = document.getElementById('partnerImg');
+        const contextImg = document.getElementById('contextImg');
+        const contextOverlayText = document.getElementById('contextOverlayText');
         const textInput = document.getElementById('textInput');
         const speechBubble = document.getElementById('speechBubble');
-        const mashupAnimal = document.getElementById('mashupAnimal');
+        const mashupPartner = document.getElementById('mashupPartner');
         const mashupScenario = document.getElementById('mashupScenario');
         const telemetryTitle = document.getElementById('telemetryTitle');
         const telemetryText = document.getElementById('telemetryText');
 
         function updateMashupContent() {
-            const animalKey = mashupAnimal.value;
+            const partnerKey = mashupPartner.value;
             const scenarioKey = mashupScenario.value;
             
-            const currentAnimal = animalData[animalKey];
+            const currentPartner = partnerData[partnerKey];
             const currentScenario = scenarioData[scenarioKey];
 
-            partnerImg.src = currentAnimal.img;
+            partnerImg.src = currentPartner.img;
+            contextImg.src = currentScenario.img;
+            contextOverlayText.textContent = currentScenario.title;
             telemetryTitle.textContent = currentScenario.title;
             telemetryText.textContent = currentScenario.principle;
 
-            let combinedText = `[${selectedAvatar.name} & ${currentAnimal.name}]: ${currentScenario.principle} — ${currentAnimal.dialogue}`;
+            let combinedText = `[${selectedAvatar.name} & ${currentPartner.name}]: ${currentScenario.principle} — ${currentPartner.dialogue}`;
             textInput.value = combinedText;
             speechBubble.textContent = `"${combinedText}"`;
         }
@@ -486,7 +535,7 @@
             });
         });
 
-        mashupAnimal.addEventListener('change', updateMashupContent);
+        mashupPartner.addEventListener('change', updateMashupContent);
         mashupScenario.addEventListener('change', updateMashupContent);
 
         // Initial setup load

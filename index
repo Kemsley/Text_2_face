@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Avatar Chatboard</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.3);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            margin-bottom: 5px;
+            color: var(--accent);
+            text-align: center;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Avatar Selection Grid */
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-muted);
+        }
+
+        .avatar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+        }
+
+        .avatar-card {
+            background-color: var(--card-bg);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .avatar-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(56, 189, 248, 0.5);
+        }
+
+        .avatar-card.selected {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+            background-color: #1e3a5f;
+        }
+
+        .avatar-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+        }
+
+        .avatar-name {
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        /* Active Display Screen */
+        .stage {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stage-avatar {
+            font-size: 5rem;
+            margin-bottom: 15px;
+            transition: transform 0.2s;
+        }
+
+        .speaking {
+            animation: bounce 0.5s infinite alternate;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-10px) scale(1.05); }
+        }
+
+        .speech-bubble {
+            background: #0f172a;
+            border: 1px solid #334155;
+            padding: 15px 20px;
+            border-radius: 12px;
+            max-width: 90%;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Controls Panel */
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            text-align: left;
+        }
+
+        label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        select, textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        select:focus, textarea:focus {
+            border-color: var(--accent);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        button.speak-btn {
+            background-color: var(--accent);
+            color: #0f172a;
+            border: none;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+
+        button.speak-btn:hover {
+            opacity: 0.9;
+        }
+
+        button.speak-btn:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>AI Avatar Chatboard</h1>
+        <p class="subtitle">Select an avatar, type your message, choose a funny voice, and bring them to life!</p>
+
+        <!-- 1. Avatar Selector -->
+        <div>
+            <div class="section-title">1. CHOOSE YOUR AVATAR</div>
+            <div class="avatar-grid" id="avatarGrid">
+                <div class="avatar-card selected" data-id="0" data-emoji="🤖" data-name="Bot-X">
+                    <div class="avatar-emoji">🤖</div>
+                    <div class="avatar-name">Bot-X</div>
+                </div>
+                <div class="avatar-card" data-id="1" data-emoji="🦊" data-name="Foxy">
+                    <div class="avatar-emoji">🦊</div>
+                    <div class="avatar-name">Foxy</div>
+                </div>
+                <div class="avatar-card" data-id="2" data-emoji="👽" data-name="Zorp">
+                    <div class="avatar-emoji">👽</div>
+                    <div class="avatar-name">Zorp</div>
+                </div>
+                <div class="avatar-card" data-id="3" data-emoji="🧙‍♂️" data-name="Merlin">
+                    <div class="avatar-emoji">🧙‍♂️</div>
+                    <div class="avatar-name">Merlin</div>
+                </div>
+                <div class="avatar-card" data-id="4" data-emoji="🐱" data-name="Whiskers">
+                    <div class="avatar-emoji">🐱</div>
+                    <div class="avatar-name">Whiskers</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Active Stage Screen -->
+        <div class="stage">
+            <div class="stage-avatar" id="stageEmoji">🤖</div>
+            <div class="speech-bubble" id="speechBubble">"Ready to chat! Type something below."</div>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label for="textInput">MESSAGE TO SPEAK</label>
+                    <textarea id="textInput" placeholder="Type what you want your avatar to say...">Hello humans! I have completely taken over this browser window.</textarea>
+                </div>
+
+                <div class="control-group">
+                    <label for="voiceSelect">FUNNY VOICE STYLE</label>
+                    <select id="voiceSelect">
+                        <option value="chipmunk">Chipmunk (High & Fast)</option>
+                        <option value="deep">Deep Demon (Super Low)</option>
+                        <option value="drunk">Sloppy & Slow</option>
+                        <option value="hyper">Hyperactive Caffeinated</option>
+                        <option value="normal">Normal Clean Voice</option>
+                    </select>
+                </div>
+
+                <button class="speak-btn" id="speakBtn">Make Avatar Speak 🗣️</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let selectedAvatar = { emoji: '🤖', name: 'Bot-X' };
+
+        // Handle Avatar Selection
+        const cards = document.querySelectorAll('.avatar-card');
+        const stageEmoji = document.getElementById('stageEmoji');
+
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                cards.forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                
+                selectedAvatar.emoji = card.getAttribute('data-emoji');
+                selectedAvatar.name = card.getAttribute('data-name');
+                stageEmoji.textContent = selectedAvatar.emoji;
+            });
+        });
+
+        // Speech Handling
+        const speakBtn = document.getElementById('speakBtn');
+        const textInput = document.getElementById('textInput');
+        const voiceSelect = document.getElementById('voiceSelect');
+        const speechBubble = document.getElementById('speechBubble');
+
+        speakBtn.addEventListener('click', () => {
+            const text = textInput.value.trim();
+            if (!text) return;
+
+            // Update bubble
+            speechBubble.textContent = `"${text}"`;
+
+            // Check browser support
+            if (!('speechSynthesis' in window)) {
+                alert('Your browser does not support text-to-speech.');
+                return;
+            }
+
+            window.speechSynthesis.cancel(); // Stop any ongoing speech
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            const style = voiceSelect.value;
+
+            // Apply funny voice parameters
+            switch(style) {
+                case 'chipmunk':
+                    utterance.pitch = 2.0; // Max high pitch
+                    utterance.rate = 1.4;  // Fast
+                    break;
+                case 'deep':
+                    utterance.pitch = 0.1; // Lowest pitch
+                    utterance.rate = 0.8;  // Slow
+                    break;
+                case 'drunk':
+                    utterance.pitch = 0.6;
+                    utterance.rate = 0.5;  // Very slow slur
+                    break;
+                case 'hyper':
+                    utterance.pitch = 1.5;
+                    utterance.rate = 1.8;  // Blazing fast
+                    break;
+                case 'normal':
+                default:
+                    utterance.pitch = 1.0;
+                    utterance.rate = 1.0;
+                    break;
+            }
+
+            // Animate avatar speaking mouth/bounce
+            stageEmoji.classList.add('speaking');
+
+            utterance.onend = () => {
+                stageEmoji.classList.remove('speaking');
+            };
+
+            utterance.onerror = () => {
+                stageEmoji.classList.remove('speaking');
+            };
+
+            window.speechSynthesis.speak(utterance);
+        });
+    </script>
+</body>
+</html>
